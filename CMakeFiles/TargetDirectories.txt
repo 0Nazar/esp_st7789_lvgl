@@ -1,0 +1,2 @@
+C:/Users/Welcome/esp_proj/esp_st7789_lvgl/CMakeFiles/edit_cache.dir
+C:/Users/Welcome/esp_proj/esp_st7789_lvgl/CMakeFiles/rebuild_cache.dir
