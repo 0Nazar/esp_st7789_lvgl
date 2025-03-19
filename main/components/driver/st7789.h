@@ -20,7 +20,7 @@
 #define PIN_NUM_CLK  18
 #define PIN_NUM_CS   -1
 #define PIN_NUM_DC   2
-#define PIN_NUM_RST  4
+#define PIN_NUM_RST  16
 #define PIN_NUM_BL   -1  
 // Display parameters
 

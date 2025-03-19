@@ -13,33 +13,30 @@ void ui_Screen1_screen_init(void);
 lv_obj_t * ui_Screen1;
 void ui_event_NEXT(lv_event_t * e);
 lv_obj_t * ui_NEXT;
-void ui_event_Button3(lv_event_t * e);
-lv_obj_t * ui_Button3;
-void ui_event_Button5(lv_event_t * e);
-lv_obj_t * ui_Button5;
-lv_obj_t * ui_Label2;
-lv_obj_t * ui_Label4;
 lv_obj_t * ui_Label1;
+void ui_event_NEXT1(lv_event_t * e);
+lv_obj_t * ui_NEXT1;
+lv_obj_t * ui_Label2;
+lv_obj_t * ui_HUMPAN;
 // CUSTOM VARIABLES
-lv_obj_t * uic_Screen1;
 lv_obj_t * uic_NEXT;
+lv_obj_t * uic_NEXT1;
+lv_obj_t * uic_HUMPAN;
+lv_obj_t * label_humidity;
+lv_obj_t * label_temperature;
 
 // SCREEN: ui_Screen2
 void ui_Screen2_screen_init(void);
 lv_obj_t * ui_Screen2;
 void ui_event_BACK(lv_event_t * e);
 lv_obj_t * ui_BACK;
-void ui_event_Button4(lv_event_t * e);
-lv_obj_t * ui_Button4;
-void ui_event_Button6(lv_event_t * e);
-lv_obj_t * ui_Button6;
-lv_obj_t * ui_Label5;
-lv_obj_t * ui_LABEL;
 lv_obj_t * ui_Label3;
+void ui_event_BACK1(lv_event_t * e);
+lv_obj_t * ui_BACK1;
+lv_obj_t * ui_Label4;
 // CUSTOM VARIABLES
-lv_obj_t * uic_Screen2;
 lv_obj_t * uic_BACK;
-lv_obj_t * uic_LABEL;
+lv_obj_t * uic_BACK1;
 
 // EVENTS
 lv_obj_t * ui____initial_actions0;
@@ -66,16 +63,7 @@ void ui_event_NEXT(lv_event_t * e)
     }
 }
 
-void ui_event_Button3(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(&ui_Screen2, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen2_screen_init);
-    }
-}
-
-void ui_event_Button5(lv_event_t * e)
+void ui_event_NEXT1(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
 
@@ -93,16 +81,7 @@ void ui_event_BACK(lv_event_t * e)
     }
 }
 
-void ui_event_Button4(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(&ui_Screen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Screen1_screen_init);
-    }
-}
-
-void ui_event_Button6(lv_event_t * e)
+void ui_event_BACK1(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
 

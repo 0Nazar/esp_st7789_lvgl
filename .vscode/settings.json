@@ -16,6 +16,15 @@
         "encoder.h": "c",
         "sdkconfig.h": "c",
         "lvgl.h": "c",
-        "task.h": "c"
+        "task.h": "c",
+        "ui.h": "c",
+        "lv_display.h": "c",
+        "pulse_cnt.h": "c",
+        "st7789.h": "c",
+        "disp_draw.h": "c",
+        "max6675_init.h": "c",
+        "esp_timer.h": "c",
+        "esp_system.h": "c",
+        "spi_master.h": "c"
     }
 }

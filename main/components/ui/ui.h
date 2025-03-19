@@ -21,33 +21,28 @@ void ui_Screen1_screen_init(void);
 extern lv_obj_t * ui_Screen1;
 void ui_event_NEXT(lv_event_t * e);
 extern lv_obj_t * ui_NEXT;
-void ui_event_Button3(lv_event_t * e);
-extern lv_obj_t * ui_Button3;
-void ui_event_Button5(lv_event_t * e);
-extern lv_obj_t * ui_Button5;
-extern lv_obj_t * ui_Label2;
-extern lv_obj_t * ui_Label4;
 extern lv_obj_t * ui_Label1;
+void ui_event_NEXT1(lv_event_t * e);
+extern lv_obj_t * ui_NEXT1;
+extern lv_obj_t * ui_Label2;
+extern lv_obj_t * ui_HUMPAN;
 // CUSTOM VARIABLES
-extern lv_obj_t * uic_Screen1;
 extern lv_obj_t * uic_NEXT;
+extern lv_obj_t * uic_NEXT1;
+extern lv_obj_t * uic_HUMPAN;
 
 // SCREEN: ui_Screen2
 void ui_Screen2_screen_init(void);
 extern lv_obj_t * ui_Screen2;
 void ui_event_BACK(lv_event_t * e);
 extern lv_obj_t * ui_BACK;
-void ui_event_Button4(lv_event_t * e);
-extern lv_obj_t * ui_Button4;
-void ui_event_Button6(lv_event_t * e);
-extern lv_obj_t * ui_Button6;
-extern lv_obj_t * ui_Label5;
-extern lv_obj_t * ui_LABEL;
 extern lv_obj_t * ui_Label3;
+void ui_event_BACK1(lv_event_t * e);
+extern lv_obj_t * ui_BACK1;
+extern lv_obj_t * ui_Label4;
 // CUSTOM VARIABLES
-extern lv_obj_t * uic_Screen2;
 extern lv_obj_t * uic_BACK;
-extern lv_obj_t * uic_LABEL;
+extern lv_obj_t * uic_BACK1;
 
 // EVENTS
 
