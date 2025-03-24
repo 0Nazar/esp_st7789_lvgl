@@ -18,3 +18,25 @@ Sensors: (e.g., temperature, humidity)
 Buzzer: To notify system operation
 
 Fun: To control the air outlet from the machine
+
+
+
+## Install Required Libraries
+Install LVGL library via the Library Manager.
+
+## Project Structure
+
+
+## Display draw
+
+
+
+## Using an Encoder with ESP32
+
+
+
+## Sensors
+
+
+
+## Fun
