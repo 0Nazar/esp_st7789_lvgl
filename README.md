@@ -1,32 +1,20 @@
-# _Sample project_
-
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
-
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+# _Cube project_
+This project is a graphical user interface (GUI) application running on an ESP32 microcontroller, designed to drive an ST7789 TFT display using the LVGL (Light and Versatile Graphics Library) framework. The project enables rendering of basic graphics and text, with support advanced GUI features such as buttons, sliders, and more. Additionally, sensors and an encoder integrated to enhance interactivity and functionality.
 
 
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+## Hardware Requirements
 
-## Example folder contents
+ESP32 Development Board (e.g., ESP32 DevKitC)
 
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
+ST7789 TFT Display (240x240 resolution)
 
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
+External Power Source (as required by your setup)
 
-Below is short explanation of remaining files in the project folder.
+Rotary Encoder: For user input
 
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+Sensors: (e.g., temperature, humidity)
+
+Buzzer: To notify system operation
+
+Fun: To control the air outlet from the machine
