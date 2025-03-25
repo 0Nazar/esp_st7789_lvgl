@@ -17,7 +17,7 @@ typedef struct {
 
 // Функції для роботи з MAX6675
 esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk_pin, gpio_num_t cs_pin, gpio_num_t miso_pin);
-float max6675_read_celsius(max6675_t *sensor);
-float max6675_read_fahrenheit(max6675_t *sensor);
+float read_celsius(max6675_t *sensor);
+float read_fahrenheit(max6675_t *sensor);
 
 #endif // MAX6675_INIT_H

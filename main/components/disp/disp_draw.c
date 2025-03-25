@@ -30,8 +30,8 @@ static lv_obj_t *label_temperature;
 // Calculate buffer size
 #define BUF_SIZE (LV_HOR_RES * LV_VER_RES * sizeof(lv_color_t) / 2)
 
-static lv_color_t buf1[10000];
-static lv_color_t buf2[10000];
+static lv_color_t buf1[1000];
+static lv_color_t buf2[1000];
 
 uint32_t my_tick_get_cb()
 {
@@ -89,7 +89,7 @@ void lvgl_port_task(void *arg)
 void update_sensor_task(void *pvParameters) {
     while (1) {
         // Читання даних з датчика DHT
-        int result = readDHT();
+        int result = read_hum();
         if (result == DHT_OK) {
             float humidity = getHumidity();
             // Форматування рядка для вологи
@@ -103,10 +103,11 @@ void update_sensor_task(void *pvParameters) {
             }
         } else {
             ESP_LOGE(TAG, "Failed to read DHT sensor");
+            // errorHandler(DHT_TIMEOUT_ERROR);        
         }
 
         // Читання температури з MAX6675
-        float temperature = max6675_read_celsius(&sensor);
+        float temperature = read_celsius(&sensor);
         // Форматування рядка для температури
         char temp_str[32];
         snprintf(temp_str, sizeof(temp_str), "Temp: %.2f°C", temperature);
@@ -115,7 +116,7 @@ void update_sensor_task(void *pvParameters) {
         if (lvgl_lock(-1)) {
             lv_label_set_text(label_temperature, temp_str);
             lvgl_unlock();
-        }
+        } 
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -136,7 +137,7 @@ void disp_draw_init(void)
 
     lv_display_set_flush_cb(display1, my_flush_cb);
 
-    lv_display_set_buffers(display1, buf1, buf2, 20000, LV_DISPLAY_RENDER_MODE_PARTIAL);
+    lv_display_set_buffers(display1, buf1, buf2, 2000, LV_DISPLAY_RENDER_MODE_PARTIAL);
 
     lv_tick_set_cb(my_tick_get_cb);
 
@@ -154,10 +155,11 @@ void disp_draw_init(void)
 
         label_temperature = lv_label_create(lv_scr_act());
         lv_label_set_text(label_temperature, "Temp: --");
-        lv_obj_align(label_temperature, LV_ALIGN_TOP_RIGHT, -50, 200);
+        lv_obj_align(label_temperature, LV_ALIGN_TOP_RIGHT, -75, 200);
         lvgl_unlock();
     }  
 
     setDHTgpio(GPIO_NUM_4);
-    xTaskCreate(update_sensor_task, "update_humidity_task", 4096, NULL, 4, NULL);  
+    
+    xTaskCreate(update_sensor_task, "update_humidity_task", 4096, NULL, 2, NULL);  
 }

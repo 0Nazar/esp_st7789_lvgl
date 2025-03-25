@@ -2,10 +2,13 @@
 
 #include "esp_log.h"
 #include "driver/gpio.h"
-
+#include "lvgl.h"
 #include "DHT.h"
 
 // == global defines =============================================
+
+lv_obj_t *error_hum_window;
+lv_obj_t *ok_hum_button;
 
 static const char *TAG = "DHT";
 
@@ -32,31 +35,52 @@ void errorHandler(int response)
 {
     switch (response)
     {
-
     case DHT_TIMEOUT_ERROR:
         ESP_LOGE(TAG, "Sensor Timeout\n");
+        error_window_hum("Sensor Timeout");
         break;
-
     case DHT_CHECKSUM_ERROR:
-        ESP_LOGE(TAG, "CheckSum error\n");
+        ESP_LOGE(TAG, "Checksum error\n");
+        error_window_hum("Checksum Error");
         break;
-
     case DHT_OK:
         break;
-
     default:
         ESP_LOGE(TAG, "Unknown error\n");
+        error_window_hum("Unknown Error");
     }
 }
+void ok_button_hum_event(lv_event_t *e);
 
-/*-------------------------------------------------------------------------------
-;
-;	get next state 
-;
-;	I don't like this logic. It needs some interrupt blocking / priority
-;	to ensure it runs in realtime.
-;
-;--------------------------------------------------------------------------------*/
+void error_window_hum(const char *error_message)
+{
+    // Create error window
+    error_hum_window = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(error_hum_window, LV_HOR_RES, LV_VER_RES / 2); 
+    lv_obj_align(error_hum_window, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_style_outline_color(error_hum_window, lv_color_make(255, 0, 0), LV_PART_MAIN);
+
+    // Create label to show the error message
+    lv_obj_t *label = lv_label_create(error_hum_window);
+    lv_label_set_text(label, "Humidity sensor Error!");
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, -20);
+
+    // Create "OK" button
+    ok_hum_button = lv_btn_create(error_hum_window);
+    lv_obj_align(ok_hum_button, LV_ALIGN_CENTER, 0, 20);
+    lv_obj_set_size(ok_hum_button, 100, 50);
+
+    lv_obj_t *btn_label = lv_label_create(ok_hum_button);
+    lv_label_set_text(btn_label, "OK");
+}
+
+void ok_button_hum_event(lv_event_t *e)
+{
+    lv_obj_t *obj = lv_event_get_target(e);
+    if (lv_event_get_code(e) == LV_EVENT_CLICKED) {
+        lv_obj_del(obj);  // Видалення вікна помилки
+    }
+}
 
 int getSignalLevel(int usTimeOut, bool state)
 {
@@ -77,7 +101,7 @@ int getSignalLevel(int usTimeOut, bool state)
 
 #define MAXdhtData 5 // to complete 40 = 5*8 Bits
 
-int readDHT()
+int read_hum()
 {
     int uSec = 0;
 

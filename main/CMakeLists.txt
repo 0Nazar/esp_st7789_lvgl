@@ -4,10 +4,13 @@ idf_component_register(SRCS
 "components/ui/ui_helpers.c"
 "components/ui/screens/ui_Screen1.c"
 "components/ui/screens/ui_Screen2.c"
-"components/driver/st7789.c"
-"components/driver/fontx.c"
+"components/ui/screens/ui_Screen3.c"
+"components/disp/st7789.c"
+"components/disp/fontx.c"
 "components/ext_devices/encoder/encoder.c"
 "components/ext_devices/dh22/DHT.c"
 "components/ext_devices/max6675/max6675_init.c"
-"components/driver/disp_draw.c"
-                    INCLUDE_DIRS "." "components/ui" "components/driver" "components/ext_devices/encoder" "components/ext_devices/dh22" "components/ext_devices/max6675")
+"components/disp/disp_draw.c"
+"components/PID/PID_temp.c"
+"components/PID/PID.c"
+                    INCLUDE_DIRS "." "components/ui" "components/disp" "components/ext_devices/encoder" "components/ext_devices/dh22" "components/ext_devices/max6675" "components/PID")

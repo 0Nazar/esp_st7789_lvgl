@@ -25,6 +25,8 @@
         "max6675_init.h": "c",
         "esp_timer.h": "c",
         "esp_system.h": "c",
-        "spi_master.h": "c"
+        "spi_master.h": "c",
+        "pid.h": "c",
+        "ledc.h": "c"
     }
 }

@@ -19,30 +19,39 @@ extern "C" {
 // SCREEN: ui_Screen1
 void ui_Screen1_screen_init(void);
 extern lv_obj_t * ui_Screen1;
-void ui_event_NEXT(lv_event_t * e);
-extern lv_obj_t * ui_NEXT;
+void ui_event_PAGE11(lv_event_t * e);
+extern lv_obj_t * ui_PAGE11;
 extern lv_obj_t * ui_Label1;
-void ui_event_NEXT1(lv_event_t * e);
-extern lv_obj_t * ui_NEXT1;
+void ui_event_PAGE21(lv_event_t * e);
+extern lv_obj_t * ui_PAGE21;
 extern lv_obj_t * ui_Label2;
-extern lv_obj_t * ui_HUMPAN;
 // CUSTOM VARIABLES
 extern lv_obj_t * uic_NEXT;
 extern lv_obj_t * uic_NEXT1;
-extern lv_obj_t * uic_HUMPAN;
 
 // SCREEN: ui_Screen2
 void ui_Screen2_screen_init(void);
 extern lv_obj_t * ui_Screen2;
-void ui_event_BACK(lv_event_t * e);
-extern lv_obj_t * ui_BACK;
+void ui_event_PAGE22(lv_event_t * e);
+extern lv_obj_t * ui_PAGE22;
 extern lv_obj_t * ui_Label3;
-void ui_event_BACK1(lv_event_t * e);
-extern lv_obj_t * ui_BACK1;
+void ui_event_MENU1(lv_event_t * e);
+extern lv_obj_t * ui_MENU1;
 extern lv_obj_t * ui_Label4;
 // CUSTOM VARIABLES
 extern lv_obj_t * uic_BACK;
 extern lv_obj_t * uic_BACK1;
+
+// SCREEN: ui_Screen3
+void ui_Screen3_screen_init(void);
+extern lv_obj_t * ui_Screen3;
+void ui_event_PAGE1(lv_event_t * e);
+extern lv_obj_t * ui_PAGE1;
+extern lv_obj_t * ui_Label5;
+void ui_event_MENU2(lv_event_t * e);
+extern lv_obj_t * ui_MENU2;
+extern lv_obj_t * ui_Label6;
+// CUSTOM VARIABLES
 
 // EVENTS
 

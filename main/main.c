@@ -4,9 +4,14 @@
 #include <inttypes.h>
 #include <math.h>
 #include "disp_draw.h"
+#include "encoder.h"
+#include "PID_temp.h"
 
-// Main function
 void app_main(void)
 {
-    disp_draw_init();   
+    disp_draw_init(); // FUNCTION THAT DRAW EVERYTHING ON THE SCREEN AND INIT LVGL 
+
+    // encoder_init();
+
+    pid_init();
 }

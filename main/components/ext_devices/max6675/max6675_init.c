@@ -1,7 +1,12 @@
 #include "max6675_init.h"
 #include "esp_log.h"
+#include "lvgl.h"
+#include "ui.h"
 
 #define TAG "MAX6675"
+
+lv_obj_t *error_temp_window;
+lv_obj_t *ok_temp_button;
 
 esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk_pin, gpio_num_t cs_pin, gpio_num_t miso_pin) {
     spi_bus_config_t buscfg = {
@@ -38,7 +43,7 @@ esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk
     return ESP_OK;
 }
 
-static uint16_t max6675_read_raw(max6675_t *sensor) {
+static uint16_t read_raw(max6675_t *sensor) {
     uint8_t data[2] = {0};
     spi_transaction_t trans = {
         .length = 16,
@@ -60,11 +65,41 @@ static uint16_t max6675_read_raw(max6675_t *sensor) {
     return raw;
 }
 
-float max6675_read_celsius(max6675_t *sensor) {
-    uint16_t raw = max6675_read_raw(sensor);
+void error_window_temp(const char *error_message)
+{
+    // Create error window
+    error_temp_window = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(error_temp_window, LV_HOR_RES, LV_VER_RES / 2); 
+    lv_obj_align(error_temp_window, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_style_bg_color(error_temp_window, lv_color_make(255, 0, 0), LV_PART_MAIN);
+    lv_obj_t *label = lv_label_create(error_temp_window);
+    lv_label_set_text(label, "Temperature sensor Error!");
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, -20);
+
+    // Create "OK" button
+    ok_temp_button = lv_btn_create(error_temp_window);
+    lv_obj_align(ok_temp_button, LV_ALIGN_CENTER, 0, 20);
+    lv_obj_set_size(ok_temp_button, 100, 50);
+    lv_obj_t *btn_label = lv_label_create(ok_temp_button);
+    lv_label_set_text(btn_label, "OK");
+}
+
+void ok_button_temp_event(lv_event_t *e)
+{
+    lv_obj_t *error_temp_window = lv_event_get_target(e);
+    if (lv_event_get_code(e) == LV_EVENT_CLICKED) {
+        lv_obj_del(error_temp_window);
+    }
+}
+
+float read_celsius(max6675_t *sensor) 
+{
+    uint16_t raw = read_raw(sensor);
     ESP_LOGI(TAG, "Raw data: 0x%04X", raw);
-    if (raw & 0x4) {
+    if (raw & 0x4) 
+    {
         ESP_LOGW(TAG, "No thermocouple detected");
+        error_window_temp("No thermocouple detected");
         return 0;
     }
 
@@ -72,6 +107,6 @@ float max6675_read_celsius(max6675_t *sensor) {
     return raw * 0.25;
 }
 
-float max6675_read_fahrenheit(max6675_t *sensor) {
-    return max6675_read_celsius(sensor) * 9.0 / 5.0 + 32;
+float read_fahrenheit(max6675_t *sensor) {
+    return read_celsius(sensor) * 9.0 / 5.0 + 32;
 }

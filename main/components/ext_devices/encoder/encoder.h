@@ -1,33 +1,32 @@
-#ifndef ENCODER_LVGL_H
-#define ENCODER_LVGL_H
+#ifndef ENCODER_H
+#define ENCODER_H
 
-#include "sdkconfig.h"
+#include "driver/gpio.h"
+#include "driver/pulse_cnt.h"
+#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_log.h"
-#include "driver/pulse_cnt.h"
+#include "freertos/queue.h"
+#include "freertos/semphr.h"
 #include "lvgl.h"
+#include "ui.h"
+#include "sdkconfig.h"
 
-// Define some constants
-#define PCNT_HIGH_LIMIT 100
-#define PCNT_LOW_LIMIT  -100
-#define GPIO_A 27
-#define GPIO_B 26
+// Encoder button pin definition (should match your hardware)
+#define ENCODER_A GPIO_NUM_27   // Change GPIO as per your wiring
+#define ENCODER_B GPIO_NUM_26   // Change GPIO as per your wiring
+#define ENCODER_BTN GPIO_NUM_25 // Change GPIO as per your wiring
 
-static lv_indev_t *encoder_indev;
-// Declare the LVGL group handlers
-static lv_group_t *groups[2];
-
-// Declare the Pulse Counter unit handle
-static pcnt_unit_handle_t pcnt_unit;
-
-// Declare the last count variable for the encoder
-static int last_count;
-
-// Function prototypes
-void encoder_task(void *arg);
-void setup_encoder(void);
-void set_group(void);
+// Initializes the encoder, including the PCNT unit, GPIO, and LVGL input device
 void encoder_init(void);
 
-#endif // ENCODER_LVGL_H
+// The task that handles encoder polling
+void encoder_task(void *arg);
+
+// ISR handler for the encoder button press
+static void IRAM_ATTR encoder_btn_isr_handler(void *arg);
+
+// The read callback for the encoder used by LVGL
+static void encoder_read(lv_indev_t *indev, lv_indev_data_t *data);
+
+#endif // ENCODER_H
