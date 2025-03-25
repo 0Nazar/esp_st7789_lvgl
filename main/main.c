@@ -13,5 +13,5 @@ void app_main(void)
 
     // encoder_init();
 
-    pid_init();
+    // pid_init();
 }

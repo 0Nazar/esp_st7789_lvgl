@@ -5,11 +5,12 @@
 #include "driver/gpio.h"
 #include "driver/ledc.h"
 #include "max6675_init.h"
+#include "disp_draw.h"
 
 #define FAN_PIN 5 
 
+
 struct pid_controller ctrldata;
-static max6675_t sensor;
 pid_t pid;
 
 float input = 0.0;

@@ -5,11 +5,15 @@
 
 #define TAG "MAX6675"
 
+
 lv_obj_t *error_temp_window;
 lv_obj_t *ok_temp_button;
+max6675_t sensor;
 
-esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk_pin, gpio_num_t cs_pin, gpio_num_t miso_pin) {
-    spi_bus_config_t buscfg = {
+esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk_pin, gpio_num_t cs_pin, gpio_num_t miso_pin) 
+{
+    spi_bus_config_t buscfg = 
+    {
         .miso_io_num = miso_pin,
         .mosi_io_num = -1, // Not used
         .sclk_io_num = clk_pin,
@@ -17,7 +21,8 @@ esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk
         .quadhd_io_num = -1
     };
     
-    spi_device_interface_config_t devcfg = {
+    spi_device_interface_config_t devcfg = 
+    {
         .clock_speed_hz = 4000000, // 1 MHz
         .mode = 0, // SPI mode 0
         .spics_io_num = cs_pin,
@@ -28,13 +33,15 @@ esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk
     gpio_set_level(cs_pin, 1); // CS inactive
 
     esp_err_t ret = spi_bus_initialize(host, &buscfg, SPI_DMA_CH_AUTO);
-    if (ret != ESP_OK) {
+    if (ret != ESP_OK) 
+    {
         ESP_LOGE(TAG, "Failed to initialize SPI bus");
         return ret;
     }
 
     ret = spi_bus_add_device(host, &devcfg, &sensor->spi);
-    if (ret != ESP_OK) {
+    if (ret != ESP_OK) 
+    {
         ESP_LOGE(TAG, "Failed to add MAX6675 to SPI bus");
         return ret;
     }
@@ -43,9 +50,11 @@ esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk
     return ESP_OK;
 }
 
-static uint16_t read_raw(max6675_t *sensor) {
+static uint16_t read_raw(max6675_t *sensor) 
+{
     uint8_t data[2] = {0};
-    spi_transaction_t trans = {
+    spi_transaction_t trans = 
+    {
         .length = 16,
         .rxlength = 16,
         .tx_buffer = NULL,
@@ -56,7 +65,8 @@ static uint16_t read_raw(max6675_t *sensor) {
     esp_err_t ret = spi_device_transmit(sensor->spi, &trans);
     gpio_set_level(sensor->cs_pin, 1);
 
-    if (ret != ESP_OK) {
+    if (ret != ESP_OK) 
+    {
         ESP_LOGE(TAG, "SPI read failed");
         return 0xFFFF; // Error value
     }
@@ -87,7 +97,8 @@ void error_window_temp(const char *error_message)
 void ok_button_temp_event(lv_event_t *e)
 {
     lv_obj_t *error_temp_window = lv_event_get_target(e);
-    if (lv_event_get_code(e) == LV_EVENT_CLICKED) {
+    if (lv_event_get_code(e) == LV_EVENT_CLICKED) 
+    {
         lv_obj_del(error_temp_window);
     }
 }
@@ -104,7 +115,11 @@ float read_celsius(max6675_t *sensor)
     }
 
     raw >>= 3;
-    return raw * 0.25;
+    float temp_c = raw * 0.25;
+    
+    ESP_LOGI(TAG, "Temperature (°C): %.2f", temp_c);
+
+    return temp_c;
 }
 
 float read_fahrenheit(max6675_t *sensor) {

@@ -7,6 +7,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "disp_draw.h"
+#include "max6675_init.h"
 
 // Function declarations
 uint32_t my_tick_get_cb(void);

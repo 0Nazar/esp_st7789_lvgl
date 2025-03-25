@@ -15,6 +15,8 @@ typedef struct {
     gpio_num_t cs_pin;        // GPIO пін для CS
 } max6675_t;
 
+extern max6675_t sensor;
+
 // Функції для роботи з MAX6675
 esp_err_t max6675_init(max6675_t *sensor, spi_host_device_t host, gpio_num_t clk_pin, gpio_num_t cs_pin, gpio_num_t miso_pin);
 float read_celsius(max6675_t *sensor);

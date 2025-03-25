@@ -24,7 +24,6 @@ TFT_t my_tft;
 
 static lv_obj_t *label_humidity;
 
-static max6675_t sensor;
 static lv_obj_t *label_temperature; 
 
 // Calculate buffer size
@@ -161,5 +160,5 @@ void disp_draw_init(void)
 
     setDHTgpio(GPIO_NUM_4);
     
-    xTaskCreate(update_sensor_task, "update_humidity_task", 4096, NULL, 2, NULL);  
+    xTaskCreate(update_sensor_task, "update_humidity_task", 4096, NULL, 3, NULL);  
 }
